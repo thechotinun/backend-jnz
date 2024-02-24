@@ -21,4 +21,13 @@ export class JenosizeController {
       return ApiResource.errorResponse(error);
     }
   }
+
+  @Get('login')
+  async login(): Promise<ApiResource> {
+    try {
+      return ApiResource.successResponse('Hello world 👋');
+    } catch (error) {
+      return ApiResource.errorResponse(error);
+    }
+  }
 }
