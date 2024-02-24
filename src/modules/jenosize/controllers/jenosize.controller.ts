@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiResource } from '@common/reponses/api-resource';
 import { JenosizeService } from '@modules/jenosize/services/jenosize.service';
 
@@ -7,9 +7,14 @@ export class JenosizeController {
   constructor(private readonly jenosizeService: JenosizeService) {}
 
   @Get()
-  async hello(): Promise<ApiResource> {
+  async placeSearch(
+    @Query()
+    query: {
+      pagetoken: string;
+    },
+  ): Promise<ApiResource> {
     try {
-      const reponse = await this.jenosizeService.hello();
+      const reponse = await this.jenosizeService.placeSearch(query);
 
       return ApiResource.successResponse(reponse);
     } catch (error) {
