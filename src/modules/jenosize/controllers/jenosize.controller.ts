@@ -2,7 +2,7 @@ import { Controller, Get, Query, Render } from '@nestjs/common';
 import { ApiResource } from '@common/reponses/api-resource';
 import { JenosizeService } from '@modules/jenosize/services/jenosize.service';
 
-@Controller('api/v1/jenosize')
+@Controller('jenosize')
 export class JenosizeController {
   constructor(private readonly jenosizeService: JenosizeService) {}
 
@@ -23,7 +23,7 @@ export class JenosizeController {
   }
 
   @Get('login')
-  @Render('index')
+  @Render('widget')
   async login(): Promise<ApiResource> {
     try {
       return { message: 'Hello world! 👋' };
