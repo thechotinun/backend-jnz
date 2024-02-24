@@ -7,7 +7,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     HttpModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        baseURL: configService.get<string>('BASE_URL_AUTHEN'),
+        baseURL: configService.get<string>('ENDPOINT_API'),
+        params: {
+          type: configService.get<string>('TYPE_PLACE_SEARCH'),
+          key: configService.get<string>('GOOGLE_API_KEY'),
+        },
       }),
       inject: [ConfigService],
     }),

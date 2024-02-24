@@ -6,14 +6,8 @@ import { lastValueFrom } from 'rxjs';
 export class ExternalApi {
   constructor(private readonly httpService: HttpService) {}
 
-  async get(url: string, config?: any): Promise<any> {
-    const reponses = this.httpService.get(url, config);
-    const { data } = await lastValueFrom(reponses);
-    return data;
-  }
-
-  async post(url: string, reqBody: any, config?: any): Promise<any> {
-    const reponses = this.httpService.post(url, reqBody, config);
+  async get(path: string, config?: any): Promise<any> {
+    const reponses = this.httpService.get(path, config);
     const { data } = await lastValueFrom(reponses);
     return data;
   }
