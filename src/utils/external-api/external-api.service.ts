@@ -6,8 +6,8 @@ import { lastValueFrom } from 'rxjs';
 export class ExternalApi {
   constructor(private readonly httpService: HttpService) {}
 
-  async get(path: string, config?: any): Promise<any> {
-    const reponses = this.httpService.get(path, config);
+  async getPlaceSearch(baseURL: string, config?: any): Promise<any> {
+    const reponses = this.httpService.get(baseURL, config);
     const { data } = await lastValueFrom(reponses);
     return data;
   }
