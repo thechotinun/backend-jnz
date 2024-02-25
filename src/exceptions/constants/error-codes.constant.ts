@@ -5,4 +5,6 @@ export const ErrorCodes: { [key: number]: string } = {
   900422: 'VALIDATE_ERROR',
   900423: 'BAD_REQUEST',
   //
+  100101: 'WRONG_NUMBER',
+  //
 };

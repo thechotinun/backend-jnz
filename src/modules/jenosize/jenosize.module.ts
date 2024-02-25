@@ -19,7 +19,11 @@ export class JenosizeModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthenticateMiddleware)
-      .exclude({ path: 'jenosize/login', method: RequestMethod.GET })
+      .exclude(
+        { path: 'jenosize/login', method: RequestMethod.GET },
+        { path: 'jenosize/game24', method: RequestMethod.GET },
+        { path: 'jenosize/gamexo', method: RequestMethod.GET },
+      )
       .forRoutes(JenosizeController);
   }
 }
