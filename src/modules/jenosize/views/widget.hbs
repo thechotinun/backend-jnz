@@ -16,7 +16,7 @@
       // FirebaseUI config.
       var uiConfig = {
         // Url to redirect to after a successful sign-in.
-        'signInSuccessUrl': '/',
+        'signInSuccessUrl': '/jenosize/login',
         'callbacks': {
           'signInSuccess': function(user, credential, redirectUrl) {
             if (window.opener) {
@@ -55,15 +55,50 @@
           status: getAdminRestrictedOperationStatus()
         }
       };
-
+      
       // Initialize the FirebaseUI Widget using Firebase.
       var ui = new firebaseui.auth.AuthUI(firebase.auth());
       // The start method will wait until the DOM is loaded to include the FirebaseUI sign-in widget
       // within the element corresponding to the selector specified.
       ui.start('#firebaseui-auth-container', uiConfig);
     </script>
+    <script type="text/javascript">
+      initApp = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            var displayName = user.displayName;
+            var email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var uid = user.uid;
+            var phoneNumber = user.phoneNumber;
+            var providerData = user.providerData;
+            user.getIdToken().then(function(accessToken) {
+              document.getElementById('account-details').textContent = JSON.stringify({
+                accessToken: accessToken,
+              }, null, '  ');
+            });
+          } else {
+            // User is signed out.
+            document.getElementById('account-details').textContent = 'null';
+          }
+        }, function(error) {
+          console.log(error);
+        });
+      };
+
+      window.addEventListener('load', function() {
+        initApp()
+      });
+    </script>
   </head>
   <body>
-    <div id="firebaseui-auth-container"></div>
+    <br/>
+    <div id="firebaseui-auth-container" style="margin-top: 15%;"></div>
+    <div style="display: flex; justify-content: center">
+      <p id="account-details" style="width: 70%; word-break: break-all;"></p>
+    </div>
+     <script src="/js/dump.js"></script>
   </body>
 </html>

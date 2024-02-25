@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Query, Render, Req } from '@nestjs/common';
 import { ApiResource } from '@common/reponses/api-resource';
 import { JenosizeService } from '@modules/jenosize/services/jenosize.service';
 
@@ -27,6 +27,15 @@ export class JenosizeController {
   async login(): Promise<ApiResource> {
     try {
       return { message: 'Hello world! 👋' };
+    } catch (error) {
+      return ApiResource.errorResponse(error);
+    }
+  }
+
+  @Get('test')
+  async test(@Req() request: Request): Promise<ApiResource> {
+    try {
+      return { message: `Hello ${request['user'].email}! 👋` };
     } catch (error) {
       return ApiResource.errorResponse(error);
     }
