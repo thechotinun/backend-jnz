@@ -12,8 +12,10 @@ export class JenosizeController {
     query: {
       pagetoken: string;
     },
+    @Req() request: Request,
   ): Promise<ApiResource> {
     try {
+      console.log(`Hello ${request['user'].email}! 👋🍺`);
       const reponse = await this.jenosizeService.placeSearch(query);
 
       return ApiResource.successResponse(reponse);
@@ -32,10 +34,21 @@ export class JenosizeController {
     }
   }
 
-  @Get('test')
-  async test(@Req() request: Request): Promise<ApiResource> {
+  @Get('game24')
+  async game24(@Query() query: { nums: number[] }): Promise<ApiResource> {
     try {
-      return { message: `Hello ${request['user'].email}! 👋` };
+      const reponse = await this.jenosizeService.game24(query);
+      return ApiResource.successResponse(reponse);
+    } catch (error) {
+      return ApiResource.errorResponse(error);
+    }
+  }
+
+  @Get('gamexo')
+  async gamexo(@Query() query: { nums: number }): Promise<ApiResource> {
+    try {
+      const reponse = await this.jenosizeService.gamexo(query);
+      return ApiResource.successResponse(reponse);
     } catch (error) {
       return ApiResource.errorResponse(error);
     }
