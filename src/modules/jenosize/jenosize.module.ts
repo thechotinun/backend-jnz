@@ -23,6 +23,7 @@ export class JenosizeModule implements NestModule {
         { path: 'jenosize/login', method: RequestMethod.GET },
         { path: 'jenosize/game24', method: RequestMethod.GET },
         { path: 'jenosize/gamexo', method: RequestMethod.GET },
+        { path: 'jenosize/minimax', method: RequestMethod.POST },
       )
       .forRoutes(JenosizeController);
   }
