@@ -1,4 +1,12 @@
-import { Controller, Get, Query, Render, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Render,
+  Req,
+  Post,
+  Body,
+} from '@nestjs/common';
 import { ApiResource } from '@common/reponses/api-resource';
 import { JenosizeService } from '@modules/jenosize/services/jenosize.service';
 
@@ -45,9 +53,25 @@ export class JenosizeController {
   }
 
   @Get('gamexo')
-  async gamexo(@Query() query: { nums: number }): Promise<ApiResource> {
+  @Render('tictactoe')
+  async gamexo(): Promise<ApiResource> {
     try {
-      const reponse = await this.jenosizeService.gamexo(query);
+      return { message: 'Hello world! 👋' };
+    } catch (error) {
+      return ApiResource.errorResponse(error);
+    }
+  }
+
+  @Post('minimax')
+  async minimax(
+    @Body()
+    payload: {
+      gameData: string[];
+      PLAYER: string;
+    },
+  ): Promise<ApiResource> {
+    try {
+      const reponse = await this.jenosizeService.minimax(payload);
       return ApiResource.successResponse(reponse);
     } catch (error) {
       return ApiResource.errorResponse(error);
