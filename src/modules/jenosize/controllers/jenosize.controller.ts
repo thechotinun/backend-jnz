@@ -46,7 +46,6 @@ export class JenosizeController {
   @Render('game24')
   async game24(): Promise<ApiResource> {
     try {
-      // const reponse = await this.jenosizeService.game24(query);
       return { message: 'Hello world! 👋' };
     } catch (error) {
       return ApiResource.errorResponse(error);
